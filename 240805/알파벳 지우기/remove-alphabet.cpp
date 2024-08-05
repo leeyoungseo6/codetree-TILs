@@ -5,14 +5,22 @@ using namespace std;
 
 int main() {
     int result = 0;
-    regex re("[a-z]+");
+    regex re("\\d+");
+    smatch match;
 
     for (int i = 0; i < 2; i++)
     {
         string sInput;
         cin >> sInput;
-        sInput = regex_replace(sInput, re, "");
-        result += stoi(sInput);
+
+        string sResult = "";
+        while (regex_search(sInput, match, re))
+        {
+            sResult += match.str();
+            sInput = match.suffix();
+        }
+
+        result += stoi(sResult);
     }
 
     cout << result;
